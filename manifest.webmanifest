@@ -1,0 +1,18 @@
+{
+  "name": "Zoko Mini App",
+  "short_name": "Zoko",
+  "description": "Gestion de tâches PWA avec mode sombre et multilingue.",
+  "start_url": "./zoko.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1220",
+  "theme_color": "#0d1220",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

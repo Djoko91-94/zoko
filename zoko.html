@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoko Pro — Gestionnaire de tâches</title>
+    <meta name="theme-color" content="#0f172a">
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = tailwind.config || {};
+        tailwind.config.darkMode = 'class';
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="apple-touch-icon" href="./icons/icon.svg">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="./zoko.css">
+</head>
+
+<body class="min-h-screen pt-28 px-4 overflow-x-hidden light">
+
+    <header class="fixed top-0 w-full z-50 bg-slate-950/65 backdrop-blur border-b border-white/10 shadow-lg">
+        <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+            <div class="flex items-center gap-3">
+                <img src="https://prog-8.com/images/html/advanced/main_logo.png" class="h-10 rounded-lg"
+                    alt="Logo Zoko Pro">
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide text-white">Zoko Pro</h1>
+                    <p class="text-xs text-slate-300">Gestionnaire de tâches moderne pour votre quotidien.</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="toggleDarkModeBtn"
+                    class="btn-secondary transition px-4 py-2 rounded-2xl text-sm shadow-lg">🌙</button>
+                <button id="installBtn"
+                    class="hidden btn-primary transition px-4 py-2 rounded-2xl text-sm shadow-lg">Installer
+                    l'app</button>
+                <select id="languageSelect"
+                    class="rounded-xl px-3 py-2 text-sm bg-slate-800 text-white border border-white/10">
+                    <option value="fr">FR</option>
+                    <option value="en">EN</option>
+                    <option value="jp">JP</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div id="toast" class="hidden fixed top-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl z-50"
+        role="status" aria-live="polite"></div>
+
+    <div class="card max-w-xl mx-auto rounded-3xl shadow-2xl p-6 animate-fade">
+
+        <div class="text-center mb-5">
+            <p id="mainSectionLabel" class="section-label mx-auto">Tableau de bord Zoko</p>
+            <h1 id="title" class="text-3xl font-semibold text-white">Zoko Pro</h1>
+            <div id="heroNote" class="hero-note mx-auto mt-3 max-w-max">Interface rapide • Multilingue • Gestion
+                sécurisée</div>
+            <p id="heroDescription" class="mt-4 text-sm text-slate-300 max-w-xs mx-auto">
+                Organisez vos tâches, gérez vos projets et restez concentré avec une interface claire.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-6" role="tablist" aria-label="Navigation du tableau de bord">
+            <button id="dashboardTabBtn" type="button" class="tab-btn tab-btn-active" aria-controls="dashboardSection"
+                aria-selected="true" role="tab">Tableau de bord</button>
+            <button id="tasksTabBtn" type="button" class="tab-btn" aria-controls="tasksSection"
+                role="tab">Tâches</button>
+            <button id="addTaskTabBtn" type="button" class="tab-btn" aria-controls="addTaskSection" role="tab">Ajouter /
+                Connexion</button>
+            <button id="usersTabBtn" type="button" class="tab-btn" aria-controls="usersSection"
+                role="tab">Utilisateurs</button>
+        </div>
+
+        <div id="dashboardSection" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="stat-card">
+                    <strong id="dashboardTotal">0</strong>
+                    <span id="dashboardTotalLabel">Total de tâches</span>
+                </div>
+                <div class="stat-card">
+                    <strong id="dashboardCompleted">0</strong>
+                    <span id="dashboardCompletedLabel">Terminées</span>
+                </div>
+                <div class="stat-card">
+                    <strong id="dashboardPending">0</strong>
+                    <span id="dashboardPendingLabel">En cours</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="stat-card">
+                    <strong id="dashboardToday">0</strong>
+                    <span id="dashboardTodayLabel">À faire aujourd’hui</span>
+                </div>
+                <div class="stat-card">
+                    <strong id="dashboardOverdue">0</strong>
+                    <span id="dashboardOverdueLabel">En retard</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div class="chart-card rounded-3xl border border-slate-700 bg-slate-950/40 p-5 backdrop-blur-lg">
+                    <h3 id="chartPieTitle" class="text-lg font-semibold mb-4">Graphique circulaire</h3>
+                    <div class="chart-center mb-4">
+                        <svg id="dashboardPieChart" viewBox="0 0 42 42" class="w-32 h-32 mx-auto"></svg>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3 text-sm text-slate-400 mt-3" id="pieLegend"></div>
+                    <p id="pieChartLabel" class="text-sm text-slate-400 mt-3">Tâches terminées vs en cours</p>
+                </div>
+                <div class="chart-card rounded-3xl border border-slate-700 bg-slate-950/40 p-5 backdrop-blur-lg">
+                    <h3 id="chartProgressTitle" class="text-lg font-semibold mb-4">Graphique de progression</h3>
+                    <div class="progress-bar bg-slate-800 rounded-full h-4 overflow-hidden mb-4">
+                        <div id="dashboardProgressBar"
+                            class="h-full rounded-full bg-gradient-to-r from-sky-400 to-cyan-400" style="width: 0%">
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400"><span id="progressPercent">0%</span> <span
+                            id="progressSuffix">complété</span></p>
+                    <div id="progressDetails" class="mt-3 text-xs text-slate-500"></div>
+                </div>
+                <div class="chart-card rounded-3xl border border-slate-700 bg-slate-950/40 p-5 backdrop-blur-lg">
+                    <h3 id="chartWeeklyTitle" class="text-lg font-semibold mb-4">Productivité hebdomadaire</h3>
+                    <div id="dashboardWeeklyProd" class="weekly-bars flex items-end gap-2 h-36"></div>
+                    <div id="weeklyLegend" class="mt-4 text-xs text-slate-400">Barres colorées selon le taux de
+                        complétion.</div>
+                </div>
+            </div>
+
+            <div class="calendar-card rounded-3xl border border-slate-700 bg-slate-950/40 p-5 backdrop-blur-lg mt-4">
+                <div class="flex items-center justify-between gap-3 mb-4">
+                    <div>
+                        <h3 id="calendarTitle" class="text-lg font-semibold">Calendrier</h3>
+                        <p id="calendarSubTitle" class="text-sm text-slate-400">Vue mensuelle</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="prevMonthBtn" type="button"
+                            class="btn-secondary px-3 py-2 rounded-2xl text-sm">‹</button>
+                        <button id="nextMonthBtn" type="button"
+                            class="btn-secondary px-3 py-2 rounded-2xl text-sm">›</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between mb-3">
+                    <span id="calendarMonthLabel" class="text-base font-semibold"></span>
+                    <span id="calendarLegend" class="text-xs text-slate-400"></span>
+                </div>
+                <div id="dashboardCalendar" class="calendar-grid grid grid-cols-7 gap-2"></div>
+            </div>
+        </div>
+
+        <div id="tasksSection" class="space-y-6 hidden">
+            <h2 id="tasksTitle" class="text-xl font-bold mt-4 mb-4 text-center">📋 Mes tâches</h2>
+
+            <div class="flex flex-col gap-3 mt-5 sm:flex-row sm:items-center">
+                <input id="searchTask" type="text" placeholder="🔍 Rechercher" aria-label="Rechercher une tâche"
+                    class="w-full rounded-xl p-3">
+                <button id="searchBtn" class="btn-primary px-4 rounded-2xl font-semibold">OK</button>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mt-4">
+                <button type="button" id="filterAll" class="tab-btn tab-btn-active">Toutes</button>
+                <button type="button" id="filterToday" class="tab-btn">Aujourd'hui</button>
+                <button type="button" id="filterWeek" class="tab-btn">Cette semaine</button>
+                <button type="button" id="filterCompleted" class="tab-btn">Terminées</button>
+            </div>
+
+            <div id="taskStats" class="mt-5 text-sm text-slate-100 bg-slate-950/30 rounded-2xl p-4"></div>
+            <ul id="taskList" class="space-y-3 mt-5"></ul>
+        </div>
+
+        <div id="addTaskSection" class="space-y-6 hidden">
+
+            <div
+                class="p-4 rounded-2xl border border-slate-700 bg-slate-950/40 backdrop-blur-lg space-y-4 shadow-inner">
+                <h3 class="text-base font-bold text-sky-400 flex items-center gap-2">🔐 Espace Utilisateur</h3>
+
+                <div class="space-y-2">
+                    <div>
+                        <label class="text-xs text-slate-400 font-medium block mb-1" for="username">Identifiant</label>
+                        <input id="username" type="text" placeholder="Ex: JeanDupont" aria-label="Nom utilisateur"
+                            class="w-full rounded-xl p-3 bg-slate-900 border border-slate-700 text-white">
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-slate-400 font-medium block mb-1" for="password">Mot de passe</label>
+                        <input id="password" type="password" placeholder="••••••••" aria-label="Mot de passe"
+                            class="w-full rounded-xl p-3 bg-slate-900 border border-slate-700 text-white">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" id="createUserBtn"
+                        class="btn-primary rounded-2xl py-3 font-semibold shadow-lg">Créer un compte</button>
+                    <button type="button" id="loginUserBtn"
+                        class="btn-accent rounded-2xl py-3 font-semibold shadow-lg">Se connecter</button>
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-slate-700/50">
+                    <button type="button" id="forgotPasswordBtn"
+                        class="text-xs text-sky-400 hover:underline bg-transparent border-0 p-0 shadow-none">Identifiants
+                        oubliés ?</button>
+                    <button type="button" id="resetAllDataBtn"
+                        class="text-xs text-amber-500 hover:underline bg-transparent border-0 p-0 shadow-none"
+                        title="Supprime toutes les données">Réinitialiser l'application</button>
+                </div>
+
+                <div id="authStatus"
+                    class="text-sm font-medium text-center text-slate-300 bg-slate-900/50 py-2 rounded-xl border border-slate-800">
+                    Connecte-toi pour commencer.</div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button type="button" id="logoutUserBtn"
+                    class="w-full btn-danger rounded-2xl py-3 font-semibold shadow-lg">Déconnexion</button>
+                <button type="button" id="syncBtn"
+                    class="w-full btn-secondary rounded-2xl py-3 font-semibold shadow-lg">Synchroniser</button>
+                <button type="button" id="enableNotificationsBtn"
+                    class="w-full btn-primary rounded-2xl py-3 font-semibold shadow-lg">Activer notifications</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="button" id="downloadBackupBtn"
+                    class="w-full btn-accent rounded-2xl py-3 font-semibold shadow-lg">Sauvegarde cloud</button>
+                <button type="button" id="restoreBackupBtn"
+                    class="w-full btn-secondary rounded-2xl py-3 font-semibold shadow-lg">Restaurer cloud</button>
+            </div>
+
+            <div class="flex flex-col gap-3 sm:flex-row sm:justify-between">
+                <button type="button" id="clearCompletedBtn"
+                    class="w-full sm:w-auto btn-secondary rounded-2xl py-3 font-semibold shadow-lg">Supprimer
+                    terminées</button>
+            </div>
+
+            <input type="file" id="backupFileInput" accept="application/json" class="hidden" />
+
+            <div class="border-t border-slate-700 pt-6">
+                <h2 id="addTaskTitle" class="text-xl font-bold mb-4 text-center text-white">✍️ Ajouter une tâche</h2>
+
+                <div class="space-y-3">
+                    <input id="taskInput" type="text" placeholder="Nouvelle tâche" class="w-full rounded-xl p-3">
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <input id="taskDate" type="date" class="rounded-xl p-3">
+                        <input id="taskTime" type="time" class="rounded-xl p-3">
+                    </div>
+
+                    <select id="taskCategory" class="w-full rounded-xl p-3" aria-label="Catégorie de la tâche">
+                        <option value="">Catégorie</option>
+                        <option value="École">📚 École</option>
+                        <option value="Travail">💻 Travail</option>
+                        <option value="Personnel">🧡 Personnel</option>
+                        <option value="Japonais">🎌 Japonais</option>
+                        <option value="Sport">🏃 Sport</option>
+                    </select>
+
+                    <select id="taskPriority" class="w-full rounded-xl p-3" aria-label="Priorité de la tâche">
+                        <option value="">Priorité</option>
+                        <option value="high">🔴 Haute</option>
+                        <option value="medium">🟠 Moyenne</option>
+                        <option value="low">🟢 Basse</option>
+                    </select>
+
+                    <select id="taskStatus" class="w-full rounded-xl p-3" aria-label="Statut de la tâche">
+                        <option value="active">En cours</option>
+                        <option value="completed">Terminée</option>
+                    </select>
+
+                    <button type="button" id="addTaskBtn"
+                        class="w-full btn-accent rounded-2xl py-3 font-semibold shadow-lg">Ajouter la tâche</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="usersSection" class="hidden space-y-5">
+            <div class="rounded-3xl border border-slate-700 bg-slate-950/40 p-5 backdrop-blur-lg">
+                <h2 id="usersSectionTitle" class="text-xl font-semibold mb-3">Utilisateurs</h2>
+                <p id="usersSectionDescription" class="text-sm text-slate-400 mb-4">Consultez les comptes créés et gérez
+                    les accès.</p>
+                <button type="button" id="showUsersBtn"
+                    class="btn-primary rounded-2xl py-3 font-semibold shadow-lg">Charger la liste</button>
+                <div id="userListContainer"
+                    class="hidden mt-5 bg-slate-950/30 border border-slate-700 rounded-3xl p-4 text-slate-100">
+                    <h3 id="userListTitle" class="font-semibold mb-3">Liste des utilisateurs</h3>
+                    <ul id="userList" class="space-y-2"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./zoko.js"></script>
+</body>
+
+</html>
