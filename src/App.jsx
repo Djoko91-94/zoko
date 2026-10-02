@@ -1,105 +1,192 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import myimage from './assets/myimage.jpg'
-import Card from './components/Card';
+import Card from './components/Card'
 import SkillBars from './components/SkillBars'
+
+const featureCards = [
+  {
+    title: 'Product design',
+    description:
+      'I create interfaces that are clean, useful, and comfortable to use on any screen size.',
+  },
+  {
+    title: 'Web development',
+    description:
+      'Modern front-end experiences with React, Vite, and responsive UX patterns from prototype to production.',
+  },
+  {
+    title: 'Optimization',
+    description:
+      'I focus on performance, accessibility, and maintainable code so the project stays easy to grow.',
+  },
+]
+
+const skills = [
+  { skillName: 'React', level: 92 },
+  { skillName: 'JavaScript', level: 88 },
+  { skillName: 'UI/UX', level: 84 },
+  { skillName: 'Node.js', level: 76 },
+]
 
 function App() {
   return (
-    <>
-      <header class="w-full bg-gray-800 text-white py-4 shadow-md">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-        <div class="container mx-auto flex justify-between items-center px-6">
-          <div class="header-left">
-            <img class="h-10" src="https://prog-8.com/images/html/advanced/main_logo.png" alt="Progate Logo - Learn to code" />
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <header className="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/80 backdrop-blur-lg">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 text-lg font-bold text-emerald-300">
+              Z
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Portfolio</p>
+              <h1 className="text-lg font-semibold text-white">Zokora</h1>
+            </div>
           </div>
-          <a href="#" class="menu-icon block md:hidden text-white text-2xl">
-            <span class="fa fa-bars"></span>
-          </a>
-          <nav class="header-right hidden md:flex space-x-6" aria-label="Main Navigation">
-            <a href="#" class="text-white hover:text-blue-400 transition duration-300 ease-in-out font-serif">Lessons</a>
-            <a href="https://prog-8.com/account/sign_in" class="text-white hover:text-blue-400 transition font-serif">Sign in</a>
-            <a href="https://prog-8.com/account/sign_in" class="login text-blue-600 hover:bg-slate-50 duration-500 font-serif">Log in</a>
+
+          <nav aria-label="Main navigation" className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+            <a href="#about" className="transition hover:text-white">À propos</a>
+            <a href="#skills" className="transition hover:text-white">Compétences</a>
+            <a href="#contact" className="transition hover:text-white">Contact</a>
           </nav>
         </div>
       </header>
-      <div class="top-wrapper bg-[url(https://prog-8.com/images/html/advanced/top_en.png)] py-16 bg-no-bg-repeat bg-cover bg-center">
-        <div class="container mx-auto text-center px-6">
-          <h1 class="text-4xl font-semibold mb-4 text-white font-serif">LEARN TO CODE.</h1>
-          <h1 class="text-4xl font-semibold mb-6 text-white font-serif">LEARN TO BE CREATIVE.</h1>
-          <p class="text-lg mb-0 text-white font-serif">Progate is a web service where you can learn programming online.</p>
-          <p class="text-lg mb-8 text-white font-serif">We offer you a fully equipped coding environment to get you started.</p>
-          <div class="btn-wrapper space-x-4">
-            <a href="https://www.google.co.jp/mail/help/intl/ja/about.html?vm=r" class="btn bg-green-400 text-white py-2 px-4 rounded-md mb-0 inline-block hover:brightness-90 hover:shadow-lg transition duration-300 font-serif">Sign up with Email</a>
-            <p class="my-4 text-white">or</p>
-            <a href="https://www.facebook.com/" class="btn bg-blue-600 text-white py-2 px-4 rounded-md mb-4 inline-block hover:brightness-90 hover:shadow-lg items-center gap-2 duration-300 font-serif">
-              <span class="fa-brands fa-facebook mr-2"></span>Sign up with Facebook
+
+      <main className="mx-auto max-w-6xl px-6 py-16">
+        <section className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="mb-4 inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-emerald-300">
+              Développeur front-end
+            </p>
+            <h2 className="max-w-xl text-4xl font-black tracking-tight text-white sm:text-5xl">
+              Je conçois des expériences web claires et performantes.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+              Je transforme des idées complexes en interfaces simples, élégantes et efficaces qui aident les utilisateurs à aller vite et sans friction.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a
+                href="#contact"
+                className="rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300"
+              >
+                Travaillons ensemble
+              </a>
+              <a
+                href="#projects"
+                className="rounded-full border border-slate-700 px-6 py-3 text-sm font-semibold text-white transition hover:border-slate-500 hover:bg-slate-900"
+              >
+                Voir mes projets
+              </a>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-full bg-emerald-500/20 blur-3xl" />
+            <div className="card-hero relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 p-4 shadow-2xl">
+              <img
+                src={myimage}
+                alt="Portrait de Zokora"
+                className="h-[420px] w-full rounded-2xl object-cover"
+              />
+              <div className="mt-4 flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-950/80 p-4">
+                <div>
+                  <p className="text-sm text-slate-400">Statut</p>
+                  <p className="font-semibold text-white">Disponible pour missions</p>
+                </div>
+                <span className="inline-flex h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" aria-label="Disponible" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="mt-20">
+          <div className="mb-8 max-w-xl">
+            <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Ce que je fais</p>
+            <h3 className="mt-3 text-3xl font-bold text-white">Des solutions simples à utiliser et faciles à maintenir.</h3>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {featureCards.map((card) => (
+              <Card
+                key={card.title}
+                titleText={card.title}
+                contentsText={card.description}
+                classes="h-full"
+              />
+            ))}
+          </div>
+        </section>
+
+        <section id="skills" className="mt-20 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="card-surface rounded-3xl p-8">
+            <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Approche</p>
+            <h3 className="mt-3 text-3xl font-bold text-white">Un bon produit commence par une bonne compréhension.</h3>
+            <p className="mt-4 text-base leading-7 text-slate-300">
+              J’associe design, code et stratégie pour livrer des produits qui sont beaux, lisibles et alignés avec les besoins réels des utilisateurs.
+            </p>
+          </div>
+
+          <div className="card-surface rounded-3xl p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-white">Compétences</h3>
+              <span className="rounded-full border border-slate-700 px-3 py-1 text-xs uppercase tracking-[0.2em] text-slate-300">
+                2026
+              </span>
+            </div>
+            <SkillBars skills={skills} />
+          </div>
+        </section>
+
+        <section id="projects" className="mt-20">
+          <div className="card-surface rounded-3xl p-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Projets</p>
+                <h3 className="mt-3 text-3xl font-bold text-white">Des réalisations centrées sur l’expérience utilisateur.</h3>
+              </div>
+              <a href="#contact" className="text-sm font-semibold text-emerald-300 hover:text-emerald-200">
+                Demander un devis →
+              </a>
+            </div>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+                <p className="text-sm text-slate-400">01</p>
+                <h4 className="mt-3 text-xl font-semibold text-white">Dashboard SaaS</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-300">Interface de gestion claire avec suivi des KPIs et automatisations utiles.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+                <p className="text-sm text-slate-400">02</p>
+                <h4 className="mt-3 text-xl font-semibold text-white">Boutique e-commerce</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-300">Expérience d’achat optimisée, mobile-first et pensée pour la conversion.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+                <p className="text-sm text-slate-400">03</p>
+                <h4 className="mt-3 text-xl font-semibold text-white">Portfolio créatif</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-300">Design fort, narration claire et mise en valeur des compétences de manière élégante.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="mt-20 pb-12">
+          <div className="rounded-3xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 p-8 text-center">
+            <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Contact</p>
+            <h3 className="mt-3 text-3xl font-bold text-white">Prêt à lancer votre prochain projet ?</h3>
+            <p className="mx-auto mt-4 max-w-2xl text-slate-300">
+              Je peux vous accompagner sur la conception, le développement ou l’optimisation d’une interface web moderne.
+            </p>
+            <a
+              href="mailto:hello@zokora.dev"
+              className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+            >
+              hello@zokora.dev
             </a>
-            <a href="https://x.com/?lang=en" class="btn bg-blue-400 text-white py-2 px-4 rounded-md mb-4 inline-block hover:brightness-90 hover:shadow-lg transition duration-300 items-center gap-2 font-serif">
-              <span class="fa-brands fa-twitter mr-2"></span>Sign up with Twitter
-            </a>
           </div>
-        </div>
-      </div>
-
-      <div class="lesson-wrapper bg-white py-16">
-        <div class="container mx-auto text-center px-6">
-          <div class="heading mb-8">
-            <h2 class="text-3xl font-serif">Learn Where to Get Started!</h2>
-          </div>
-          <div class="lessons grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 font-serif">
-            <div class="lesson text-center">
-              <div class="lesson-icon mb-4">
-                <img src="https://prog-8.com/images/html/advanced/html.png" class="mx-auto" alt="HTML & CSS" loading="lazy" />
-                <p class="font-semibold">HTML & CSS</p>
-              </div>
-              <p class="txt-contents text-sm">Languages used to build and design the appearances of your websites. HTML adds the structure, and CSS styles it.</p>
-            </div>
-            <div class="lesson text-center">
-              <div class="lesson-icon mb-4">
-                <img src="https://prog-8.com/images/html/advanced/jQuery.png" class="mx-auto" alt="jQuery" loading="lazy" />
-                <p class="font-semibold">jQuery</p>
-              </div>
-              <p class="txt-contents text-sm">A fast, feature-rich and easy-to-use JavaScript library that handles animations and Ajax requests.</p>
-            </div>
-            <div class="lesson text-center">
-              <div class="lesson-icon mb-4">
-                <img src="https://prog-8.com/images/html/advanced/ruby.png" class="mx-auto" alt="Ruby" loading="lazy" />
-                <p class="font-semibold">Ruby</p>
-              </div>
-              <p class="txt-contents text-sm">A dynamic, general-purpose language that is simple and productive. It is commonly used to build web applications.</p>
-            </div>
-            <div class="lesson text-center">
-              <div class="lesson-icon mb-4">
-                <img src="https://prog-8.com/images/html/advanced/php.png" class="mx-auto" alt="PHP" loading="lazy" />
-                <p class="font-semibold">PHP</p>
-              </div>
-              <p class="txt-contents text-sm">An open source scripting language that can be embedded into HTML, and well suited for web development.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="message-wrapper bg-gray-100 py-16">
-        <div class="container mx-auto text-center px-6">
-          <div class="heading mb-8">
-            <h2 class="text-3xl font-serif">Ready to become an awesome programmer?</h2>
-            <h3 class="text-xl font-light mb-6 font-serif">Let's learn to code, learn to be creative!</h3>
-          </div>
-          <a href="https://progate.com/dashboard" class="btn bg-green-600 text-white py-2 px-6 rounded-md inline-block hover:brightness-90 hover:shadow-lg items-center gap-2 duration-300 font-serif">Start Learning</a>
-        </div>
-      </div>
-
-      <footer class="bg-gray-800 text-white py-6">
-        <div class="container">
-          <img src="https://prog-8.com/images/html/advanced/footer_logo.png" alt="Footer Logo" class="mb-4" />
-          <p class="font-serif">Learn to code, learn to be creative.</p>
-        </div>
-      </footer>
-    </>
-  );
+        </section>
+      </main>
+    </div>
+  )
 }
 
-export default App;
+export default App

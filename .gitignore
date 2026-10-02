@@ -28,3 +28,11 @@ dist-ssr
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.railway.example
+!.env.railway.production.example
+!.env.render.example
+!.env.render.production.example

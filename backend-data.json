@@ -2,15 +2,27 @@
   "users": {
     "testuser": {
       "salt": "d62745eeea3efb0b2a46b77601d55741",
-      "passwordHash": "7e9a6bd986a58866b027da1e498dfcdfdba862304e42029ffaa511720af263f2f292d568948eab7586ea481d1d37678730fa94190608f8b94ae55da1b77e44f6"
+      "passwordHash": "7e9a6bd986a58866b027da1e498dfcdfdba862304e42029ffaa511720af263f2f292d568948eab7586ea481d1d37678730fa94190608f8b94ae55da1b77e44f6",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "emailReminderEnabled": false
     },
     "zoko_verify": {
       "salt": "ed54df7ac33ff18267d9f8866f641b3f",
-      "passwordHash": "fecf5836c44f84ac2de9bd7ddfd364a9c7587485c1d94c678ae2f35cf101224b2e1d465fd5d68cbb2059dd966eba883585d9210458233eeed2561ce60e04e646"
+      "passwordHash": "fecf5836c44f84ac2de9bd7ddfd364a9c7587485c1d94c678ae2f35cf101224b2e1d465fd5d68cbb2059dd966eba883585d9210458233eeed2561ce60e04e646",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "emailReminderEnabled": false
     },
     "test_user_ui": {
       "salt": "06a5093f3a9adfb93f6aba96b51d14fd",
-      "passwordHash": "412edda66594bd2d1693c9e1aee964e57bf8ee80f4a61c3a4cfd8cd8a8cdad702b7a97d9c4436c9978b855f78e1b52a90449edf592b76eca8f4c0192fe372a05"
+      "passwordHash": "412edda66594bd2d1693c9e1aee964e57bf8ee80f4a61c3a4cfd8cd8a8cdad702b7a97d9c4436c9978b855f78e1b52a90449edf592b76eca8f4c0192fe372a05",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "emailReminderEnabled": false
     }
   },
   "tasks": [
@@ -27,26 +39,5 @@
       "updatedAt": "2026-06-09T08:20:34.282Z"
     }
   ],
-  "authTokens": {
-    "1210633f49d12a1ac421e912ec4eab73a7617607d77d222157fb391e0f74a674": {
-      "username": "zoko_verify",
-      "expiresAt": 1781079625689
-    },
-    "097b8094c2eccbc4dd614681ad15373af758d8ba1ef97b41206c384eadf7abb9": {
-      "username": "zoko_verify",
-      "expiresAt": 1781079625835
-    },
-    "ed6f504019d5b0c3c2d5f883171727da0882decb70d60f075c170f35ebe46d04": {
-      "username": "zoko_verify",
-      "expiresAt": 1781079634241
-    },
-    "a243454faf6550341c785a95d69c06272ed331207c7edca3c60dc6bfa67c2807": {
-      "username": "test_user_ui",
-      "expiresAt": 1781080274744
-    },
-    "d2fd2b76e383a8627ed0287a2f1ba39790fdc2c3441112e693bbf0aba412509f": {
-      "username": "test_user_ui",
-      "expiresAt": 1781080402984
-    }
-  }
+  "authTokens": {}
 }

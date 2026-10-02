@@ -1,31 +1,42 @@
-import React from "react";
-
 type Skill = {
-    skillName: string;
-    level: number;
-}
+  skillName: string;
+  level: number;
+};
 
-export default function SkillBars(skills: Skill[]) {
-    return skills.map((skill, index) => (
+type SkillBarsProps = {
+  skills: Skill[];
+};
+
+export default function SkillBars({ skills }: SkillBarsProps) {
+  return (
+    <div className="space-y-5">
+      {skills.map((skill) => (
         <SkillBar
-            titleText={skill.skillName}
-            contentsText={skill.level + '%'}
-            width={skill.level}
+          key={skill.skillName}
+          titleText={skill.skillName}
+          contentsText={`${skill.level}%`}
+          width={skill.level}
         />
-    ))
+      ))}
+    </div>
+  );
 }
 
 function SkillBar({ width, titleText, contentsText }) {
-    return (<div className="w-full">
-        <h2>{titleText}</h2>
-        <div className="shadow bg-green-100 mt-2 w-full">
-            <div className="bg-green-600 text-xs leading-none py-1 text-center text-white"
-                style={{ width: `${width}%` }}
-            >
-                {contentsText}
-            </div>
-        </div>
+  return (
+    <div className="w-full">
+      <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+        <span>{titleText}</span>
+        <span>{contentsText}</span>
+      </div>
+      <div className="h-3 overflow-hidden rounded-full bg-slate-800 shadow-inner">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-500"
+          style={{ width: `${width}%` }}
+          aria-label={`${titleText} ${contentsText}`}
+        />
+      </div>
     </div>
-    )
+  );
 }
 
