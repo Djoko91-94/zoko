@@ -181,6 +181,7 @@ function getVisibleTasks() {
 const translations = {
     fr: {
         pageTitle: "Zoko Pro — Gestionnaire de tâches",
+        headerBrandTitle: "Zoko Dashboard",
         mainSectionLabel: "Tableau de bord Zoko",
         title: "Zoko Pro",
         heroNote: "Interface rapide • Multilingue • Gestion sécurisée",
@@ -383,6 +384,7 @@ const translations = {
     },
     en: {
         pageTitle: "Zoko Pro — Task Manager",
+        headerBrandTitle: "Zoko Dashboard",
         mainSectionLabel: "Zoko Dashboard",
         title: "Zoko Pro",
         heroNote: "Fast interface • Multilingual • Secure management",
@@ -585,6 +587,7 @@ const translations = {
     },
     jp: {
         pageTitle: "Zoko Pro — タスク管理",
+        headerBrandTitle: "Zoko ダッシュボード",
         mainSectionLabel: "Zoko ダッシュボード",
         title: "Zoko Pro",
         heroNote: "高速インターフェース • 多言語対応 • 安全な管理",

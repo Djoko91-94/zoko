@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Zoko Pro — Task Manager</title>
 
     <meta name="theme-color" content="#0f172a">
@@ -41,23 +41,24 @@
 <body class="min-h-screen bg-gradient-to-br from-purple-200 via-blue-100 to-indigo-200 overflow-x-hidden antialiased">
 
     <!-- Header -->
-    <header
-        class="fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-2xl border-b border-slate-700/80 shadow-[0_14px_36px_rgba(2,6,23,0.35)] text-slate-100">
-        <div
-            class="max-w-6xl mx-auto flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-4">
-            <div class="flex items-center gap-3">
-                <img src="./icons/logo.svg" class="h-10 rounded-lg app-logo ring-1 ring-slate-700/80"
-                    alt="Logo Zoko Pro">
-                <div>
-                    <h1 class="text-xl font-bold tracking-wide text-white">Zoko Pro</h1>
-                    <p id="headerDescription" data-i18n="headerDescription" class="text-xs text-slate-300">A modern task
-                        manager for your daily flow.</p>
+    <header id="appHeader"
+        class="app-header fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-2xl border-b border-slate-700/80 shadow-[0_14px_36px_rgba(2,6,23,0.35)] text-slate-100">
+        <div class="app-header-inner max-w-6xl mx-auto flex items-center justify-between gap-2 px-3 py-2 sm:px-4 sm:py-3">
+            <div class="app-brand flex min-w-0 items-center gap-2 sm:gap-3">
+                <img src="./icons/logo.svg" class="h-9 w-9 flex-none rounded-lg app-logo ring-1 ring-slate-700/80 sm:h-10 sm:w-10"
+                    alt="Logo Zoko Dashboard">
+                <div class="min-w-0">
+                    <h1 id="headerBrandTitle" data-i18n="headerBrandTitle"
+                        class="app-brand-title text-[clamp(0.95rem,3.4vw,1.25rem)] font-bold tracking-wide text-white">
+                        Zoko Dashboard</h1>
+                    <p id="headerDescription" data-i18n="headerDescription"
+                        class="hidden text-xs text-slate-300 sm:block">A modern task manager for your daily flow.</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="app-header-actions flex flex-none items-center justify-end gap-1.5 sm:gap-2">
                 <button id="toggleDarkModeBtn" type="button"
-                    class="btn-secondary transition flex items-center justify-center w-11 h-11 rounded-2xl text-sm shadow-lg border border-slate-700 bg-slate-900/80 text-slate-100 hover:bg-slate-800"
+                    class="btn-secondary transition flex h-11 w-11 flex-none items-center justify-center rounded-2xl text-sm shadow-lg border border-slate-700 bg-slate-900/80 text-slate-100 hover:bg-slate-800"
                     aria-label="Toggle theme" aria-pressed="false">
                     <svg id="themeIcon" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -73,7 +74,7 @@
                     </svg>
                 </button>
                 <button id="installBtn" type="button"
-                    class="hidden btn-primary transition items-center gap-2 px-4 py-2 rounded-2xl text-sm shadow-lg"
+                    class="hidden btn-primary app-install-button transition h-11 w-11 flex-none items-center justify-center rounded-2xl text-sm shadow-lg sm:w-auto sm:gap-2 sm:px-4"
                     aria-label="Install app">
                     <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -81,15 +82,22 @@
                         <path d="M8 11l4 4 4-4"></path>
                         <path d="M4 19h16"></path>
                     </svg>
-                    <span id="installAppBtn" data-i18n="installAppBtn">Install</span>
+                    <span id="installAppBtn" class="hidden sm:inline" data-i18n="installAppBtn">Install</span>
                 </button>
-                <select id="languageSelect"
-                    class="rounded-xl px-3 py-2 text-sm bg-slate-900/80 text-slate-100 border border-slate-700 shadow-sm"
-                    aria-label="Change language">
-                    <option value="fr">FR</option>
-                    <option value="en">EN</option>
-                    <option value="jp">JP</option>
-                </select>
+                <label class="app-language-control flex h-11 flex-none items-center gap-1 rounded-xl border border-slate-700 bg-slate-900/80 px-2 shadow-sm">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4 flex-none text-slate-300"
+                        fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+                    </svg>
+                    <select id="languageSelect" class="h-full min-w-0 border-0 bg-transparent px-0 text-sm text-slate-100"
+                        aria-label="Change language">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                        <option value="jp">JP</option>
+                    </select>
+                </label>
             </div>
         </div>
     </header>
@@ -98,7 +106,7 @@
     <div id="toast" class="hidden fixed top-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl z-50"
         role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="w-full pt-24 px-3 pb-6 sm:pt-28 sm:px-4">
+    <div class="app-page w-full px-3 sm:px-4">
         <!-- Main Content Container -->
         <main
             class="card hero-shell w-full max-w-6xl mx-auto rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-8 animate-fade border border-slate-200/80 shadow-[0_24px_45px_rgba(15,23,42,0.08)] text-slate-800 transition-all duration-300 ease-out hover:-translate-y-1">
