@@ -45,6 +45,10 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'zoko.html'));
+});
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname)));
 
 const apiLimiter = rateLimit({
