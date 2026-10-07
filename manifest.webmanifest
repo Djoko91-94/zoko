@@ -1,12 +1,15 @@
 {
-  "name": "Zoko Mini App",
+  "id": "./zoko.html",
+  "name": "Zoko Pro — Gestion des tâches",
   "short_name": "Zoko",
-  "description": "Gestion de tâches PWA avec mode sombre et multilingue.",
+  "description": "Organisez vos tâches, suivez vos priorités et avancez sereinement avec Zoko Pro.",
+  "lang": "fr",
   "start_url": "./zoko.html",
   "scope": "./",
   "display": "standalone",
+  "categories": ["productivity"],
   "background_color": "#0d1220",
-  "theme_color": "#0d1220",
+  "theme_color": "#0f172a",
   "icons": [
     {
       "src": "./icons/icon.svg",
